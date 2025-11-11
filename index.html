@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>KaizenGO - Yamaha</title>
+
+    <!-- PWA / Manifest -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0A2D82" />
+    <link rel="icon" href="icon-192.png" sizes="192x192" />
+    <link rel="icon" href="icon-512.png" sizes="512x512" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <noscript>Ative o JavaScript para usar o KaizenGO.</noscript>
+
+   <!-- Telas ================================================== -->
+<main>
+  <!-- TELA DE LOGIN -->
+  <section id="login-screen" class="screen active">
+    <div class="login-container">
+      <img src="icon-512.png" alt="KaizenGO Logo" class="logo-login" />
+      <h2>Bem-vindo(a)</h2>
+
+      <div class="form-group">
+        <input type="text" id="username" placeholder="Matrícula" />
+      </div>
+      <div class="form-group">
+        <input type="password" id="password" placeholder="Senha" />
+      </div>
+      <button id="login-btn" class="btn">Entrar</button>
+
+      <p id="login-error" class="error-text">Usuário ou senha inválidos.</p>
+
+      <div class="login-links">
+        <button id="first-access" class="link">Primeiro acesso</button>
+        <button id="forgot-pass" class="link">Esqueci minha senha</button>
+      </div>
+
+      <p class="muted">Protótipo navegável</p>
+    </div>
+  </section>
+
+  <!-- TELA DE CADASTRO -->
+  <section id="register-screen" class="screen hidden">
+    <div class="form-container">
+      <h2>Primeiro acesso</h2>
+      <input type="text" id="reg-matricula" placeholder="Matrícula" />
+      <input type="email" id="reg-email" placeholder="E-mail corporativo" />
+      <input type="password" id="reg-senha" placeholder="Senha" />
+      <input type="password" id="reg-confirma" placeholder="Confirmar senha" />
+      <button id="register-btn" class="btn">Cadastrar</button>
+      <button id="voltar-login" class="link">Voltar</button>
+    </div>
+  </section>
+
+  <!-- TELA DE REDEFINIÇÃO -->
+  <section id="reset-screen" class="screen hidden">
+    <div class="form-container">
+      <h2>Redefinir senha</h2>
+      <input type="text" id="reset-matricula" placeholder="Matrícula" />
+      <input type="password" id="reset-nova-senha" placeholder="Nova senha" />
+      <input type="password" id="reset-confirma-senha" placeholder="Confirmar nova senha" />
+      <button id="reset-btn" class="btn">Redefinir</button>
+      <button id="voltar-login-reset" class="link">Voltar</button>
+    </div>
+  </section>
+
+  <!-- TELA PRINCIPAL -->
+  <section id="home" class="screen hidden">
+    <header>
+      <h1><img src="icon-512.png" alt="KaizenGO" class="logo-mini" /> KaizenGO</h1>
+      <button id="logout-btn" class="btn small hidden">Sair</button>
+    </header>
+
+    <div class="cards-grid">
+      <div class="card" data-screen="transporte">🚐 Transporte</div>
+      <div class="card" data-screen="rotas">🗺️ Rotas</div>
+      <div class="card" data-screen="solicitacoes">📄 Solicitações</div>
+    </div>
+  </section>
+
+  <!-- TELA DE TRANSPORTE -->
+  <section id="transporte" class="screen hidden">
+    <h2>Solicitar Autorização</h2>
+    <button id="open-request-modal" class="btn">Nova Solicitação</button>
+    <div id="lista-solicitacoes"></div>
+  </section>
+</main>
+<!-- FIM DAS TELAS ================================================== -->
+
+    <!-- =======================
+         HEADER
+         ======================= -->
+    <header class="top" role="banner">
+      <!-- Logo Yamaha (usa icon-512 como marca do app) -->
+      <img
+        src="icon-512.png"
+        alt="Yamaha / KaizenGO"
+        class="logo"
+        width="60"
+        height="60"
+        style="display:none"
+      />
+      <!-- Título KaizenGO estilizado -->
+      <img
+        src="icon-512.png"
+        alt="KaizenGO Yamaha"
+        class="header-logo"
+        width="60"
+        height="60"
+      />
+      <p class="subtitle">Protótipo navegável PWA</p>
+
+      <button id="logout-btn" class="btn logout-btn hidden" aria-label="Sair">
+        Sair
+      </button>
+    </header>
+
+    <!-- =======================
+         CONTEÚDO / APLICAÇÃO
+         ======================= -->
+    <main class="container" role="main">
+      <!-- HOME -->
+      <section id="home" class="screen" aria-labelledby="home-title">
+        <h2 id="home-title" class="welcome">Bem-vindo(a) 👋</h2>
+
+        <div class="grid">
+          <div class="card" data-screen="transporte" tabindex="0" role="button" aria-label="Abrir Transporte">
+            <div class="emoji" aria-hidden="true">🚌</div>
+            <h3>Transporte</h3>
+            <p class="muted">Rotas, mapas e autorização</p>
+          </div>
+
+          <div class="card" data-screen="solicitacoes" tabindex="0" role="button" aria-label="Abrir Minhas Solicitações">
+            <div class="emoji" aria-hidden="true">📄</div>
+            <h3>Minhas Solicitações</h3>
+            <p class="muted">Acompanhe seus pedidos</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRANSPORTE -->
+      <section id="transporte" class="screen" aria-labelledby="transport-title">
+        <button class="btn back" aria-label="Voltar">← Voltar</button>
+        <h2 id="transport-title">Transporte — ônibus / caronas</h2>
+
+        <div class="card small">
+          <div class="row space-between" style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+            <h3 style="margin:0;">Visualizar Rotas</h3>
+            <button class="btn small-btn" id="open-request-modal">
+              Solicitar Autorização
+            </button>
+          </div>
+
+          <input
+            type="text"
+            id="rota-search"
+            placeholder="Buscar rua ou bairro..."
+            aria-label="Buscar rota"
+            style="margin-top:12px"
+          />
+
+          <div id="rotas-container" class="list" aria-live="polite"></div>
+
+          <div id="map-container" class="map hidden" style="margin-top:16px;">
+            <iframe
+              id="map-frame"
+              title="Mapa da rota selecionada"
+              width="100%"
+              height="300"
+              style="border-radius: 10px; border: none"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- MINHAS SOLICITAÇÕES -->
+      <section id="solicitacoes" class="screen" aria-labelledby="req-title">
+        <button class="btn back" aria-label="Voltar">← Voltar</button>
+        <h2 id="req-title">Minhas Solicitações</h2>
+        <div id="lista-solicitacoes" class="list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <!-- =======================
+         MODAL SOLICITAÇÃO
+         ======================= -->
+    <div id="request-modal" class="modal hidden" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+      <div class="modal-content">
+        <h3 id="modal-title">Solicitar Autorização</h3>
+
+        <input id="matricula" placeholder="Matrícula" inputmode="numeric" />
+        <textarea id="motivo" placeholder="Motivo da solicitação"></textarea>
+
+        <label for="rota-selecao"><strong>Rota:</strong></label>
+        <select id="rota-selecao">
+          <option value="">Selecione a rota</option>
+        </select>
+
+        <label for="tipo-autorizacao"><strong>Tipo de autorização:</strong></label>
+        <select id="tipo-autorizacao">
+          <option value="">Selecione</option>
+          <option value="carona">Carona</option>
+          <option value="faculdade">Faculdade</option>
+          <option value="consulta">Consulta</option>
+        </select>
+
+        <input type="date" id="data-autorizacao" />
+
+        <div class="row buttons">
+          <button class="btn" id="enviar-solicitacao">Enviar</button>
+          <button class="btn alt" id="fechar-modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="foot">Protótipo Yamaha • Projeto Acelera Aí 🚀</footer>
+
+    <!-- =======================
+         VLibras - Acessibilidade
+         ======================= -->
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget("https://vlibras.gov.br/app");
+    </script>
+
+    <!-- Script principal -->
+    <script src="script.js"></script>
+  </body>
+</html>
